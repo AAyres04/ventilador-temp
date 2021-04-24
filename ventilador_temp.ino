@@ -32,12 +32,7 @@ void tempRead(){
   temp = temp * 5;                 //multiply by 5V to get voltage
   temp = temp - 0.5;               //Subtract the offset 
   temp = temp * 100;               //Convert to degrees
-  if(temp > maxTemp){
-    digitalWrite(13, HIGH);
-  }
-  else{
-    digitalWrite(13, LOW);
-  }
+  controlEngine();
   Serial.print("Current Temperature: ");
   Serial.println(temp);
 }
@@ -51,4 +46,13 @@ void userTempInput(){
     maxTemp = result.toDouble(); // 0 if invalid
     result="";
   }
+}
+
+void controlEngine(){
+ if(temp > maxTemp){
+    digitalWrite(13, HIGH);
+  }
+  else{
+    digitalWrite(13, LOW);
+  } 
 }
