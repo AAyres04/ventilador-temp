@@ -3,7 +3,7 @@ int sensorInput;    //The variable we will use to store the sensor input
 double temp;        //The variable we will use to store temperature in degrees. 
 char serialInput;
 String result = "";
-double maxTemp = 70;
+double minTemp = 70;
 unsigned long lastTempRead = 0;
 unsigned long lastUserTempInput = 0;
 
@@ -42,14 +42,14 @@ void userTempInput(){
     serialInput=Serial.read();
     result.concat(serialInput);
   }else if(!Serial.available() && result!=""){
-    Serial.println("New max temp: " + result);
-    maxTemp = result.toDouble(); // 0 if invalid
+    Serial.println("New min temp: " + result);
+    minTemp = result.toDouble(); // 0 if invalid
     result="";
   }
 }
 
 void controlEngine(){
- if(temp > maxTemp){
+ if(temp > minTemp){
     digitalWrite(13, HIGH);
   }
   else{
